@@ -1,0 +1,91 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Post</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	{% for post in posts %}
+		<tr>
+			<td>{{ post.id }}</td>
+			<td>{{ post.title }}</td>
+			<td>
+				<a href="{% url 'blog.views.post_edit' post=post.id %}">Editar</a>
+				<a href="{% url 'post_delete' pk=post.id %}">Excluir</a>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+
+
+<nav>
+	<ul class="pagination">
+		{% if posts.has_previous %}
+		<li>
+			<a href="{% url 'blog.views.posts' page=posts.previous_page_number %}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		{% else %}
+		<li class="disabled">
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		{% endif %}
+
+		{% for number in paginacao.range %}
+			{% if number == paginacao.atual %}
+			<li class="active">
+				<span>{{ number }}</span>
+			</li>
+			{% else %}
+			<li>
+				<a href="{% url 'blog.views.posts' page=number %}">{{ number }}</a>
+			</li>
+			{% endif %}
+		{% endfor %}
+
+		{% if posts.has_next %}
+		<li>
+			<a href="{% url 'blog.views.posts' page=posts.next_page_number %}" aria-label="Previous">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+		{% else %}
+		<li class="disabled">
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+</nav>
+
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="{% url 'blog.views.posts' page=posts.previous_page_number %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="{% url 'blog.views.posts' page=posts.next_page_number %}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock content %}

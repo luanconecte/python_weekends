@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<form method="DELETE">{% csrf_token %}
+
+	<div class="form-group">
+		<label for="post-title">Título</label>
+		<input type="text" name="title" id="post-title" value="{{ form.title.value|default_if_none:"" }}" class="form-control">
+	</div><!-- .form-group -->
+
+	{% for error in form.title.errors %}
+		<div class="alert alert-warning">{{ error }}</div>
+	{% endfor %}
+
+	<div class="form-group">
+		<label for="post-text">Texto</label>
+		<textarea name="text" id="post-text" class="form-control">{{ form.text.value|default_if_none:"" }}</textarea>
+	</div><!-- .form-group -->
+
+	{% for error in form.text.errors %}
+		<div class="alert alert-warning">{{ error }}</div>
+	{% endfor %}
+
+	<button type="submit" class="btn btn-primary">Atualizar</button>
+</form>
+{% endblock content %}
