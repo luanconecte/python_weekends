@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+
+{{ MEDIA_ROOT }}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <!-- nome -->
+
+  <div class="form-group">
+    {{ form.nome.label_tag }}
+    {{ form.nome }}
+  </div><!-- .form-control -->
+
+  {% if form.nome.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.nome.errors }}
+  </div>
+  {% endif %}
+
+  <!-- email -->
+
+  <div class="form-group">
+    {{ form.email.label_tag }}
+    {{ form.email }}
+  </div><!-- .form-control -->
+
+  {% if form.email.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.email.errors }}
+  </div>
+  {% endif %}
+
+  <!-- mensagem -->
+
+  <div class="form-group">
+    {{ form.mensagem.label_tag }}
+    {{ form.mensagem }}
+  </div><!-- .form-control -->
+
+  {% if form.mensagem.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.mensagem.errors }}
+  </div>
+  {% endif %}
+
+  <!-- arquivo -->
+
+  <div class="form-group">
+    {{ form.arquivo.label_tag }}
+    {{ form.arquivo }}
+  </div><!-- .form-control -->
+
+  {% if form.arquivo.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.arquivo.errors }}
+  </div>
+  {% endif %}
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock content %}

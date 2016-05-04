@@ -3,9 +3,7 @@
 <form method="post">
 {% csrf_token %}
 
-{{ form.as_p }}
 
-<!--
 <table>
 	<tr>
 		<td><label for="user_first_name">Nome:</label></td>
@@ -57,18 +55,33 @@
 		<td><input type="password" name="password" id="user_password" value="{{ form.password.value }}"></td>
 	</tr>
 
+	{% if form.password.errors %}
+	<tr>
+		{% for error in form.password.errors %}
+		<td>&</td>
+		<td>{{ error }}</td>
+		{% endfor %}
+	</tr>
+	{% endif %}
+
 	<tr>
 		<td><label for="user_password_two">Repita o password:</label></td>
 		<td><input type="password" name="password_two" id="user_password_two" value="{{ form.password_two.value }}"></td>
 	</tr>
+
+	{% if form.password_two.errors %}
+	<tr>
+		{% for error in form.password_two.errors %}
+		<td>&</td>
+		<td>{{ error }}</td>
+		{% endfor %}
+	</tr>
+	{% endif %}
 
 	<tr>
 		<td>&</td>
 		<td><button type="submit">Cadastrar</button></td>
 	</tr>
 </table>
--->
-
-<button type="submit">Cadastrar</button>
 
 </form>
