@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Mensagem</th>
+        <th>Arquivo</th>
+        <th>#</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for contato in contatos %}
+      <tr>
+        <td>{{ contato.id }}</td>
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.email }}</td>
+        <td>{{ contato.mensagem }}</td>
+        <td>
+          <a href="{{ contato.arquivo.url }}">
+            Arquivo
+          </a>
+        </td>
+        <td>
+          <a href="" class="btn btn-primary">Editar</a>
+          <button class="btn btn-primary">Excluir</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table><!-- .table -->
+
+  <nav>
+    <ul class="pagination">
+
+      {% if contatos.has_previous %}
+      <li>
+        <a href="?page={{ contatos.previous_page_number }}">
+          <span>&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% for page in paginator.page_range %}
+        <li><a href="?page={{ page }}">{{ page }}</a></li>
+      {% endfor %}
+
+      {% if contatos.has_next %}
+      <li>
+        <a href="?page={{ contatos.next_page_number }}">
+          <span>&raquo;</span>
+        </a>
+      </li>
+      {% endif %}
+
+    </ul>
+  </nav>
+
+{% endblock content %}
